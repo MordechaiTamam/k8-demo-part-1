@@ -1,0 +1,25 @@
+####### Build the image: #######
+docker build -t moditamam/1208:latest .
+docker push moditamam/1208:latest
+kubectl create deployment modi-1208 --image=moditamam/1208:latest
+kubectl scale --replicas=2 deployment modi-1208
+kubectl expose deployment/modi-1208 --type="NodePort" --port 8080
+kubectl get services
+kubectl describe services/modi-1208
+export NODE_PORT=$(kubectl get services/modi-1208 -o go-template='{{(index .spec.ports 0).nodePort}}')
+echo NODE_PORT=$NODE_PORT
+curl $(minikube ip):$NODE_PORT
+
+####### Interacting with pod/container: #####
+kubectl logs ${POD_NAME} ${CONTAINER_NAME}
+kubectl exec ${POD_NAME} -c ${CONTAINER_NAME} -- ${CMD} ${ARG1} ${ARG2} ... ${ARGN}
+kubectl exec -it ${POD_NAME} -c ${CONTAINER_NAME} -- sh
+
+####### Deploy with yaml #########
+kubectl apply -f deployment.yaml
+kubectl apply -f deploy-service.yaml
+
+######3 cleaning environment ########
+kubectl delete deployment,services -l app=modi-1208
+kubectl delete deploy-service.yaml
+kubectl delete deployment.yaml
