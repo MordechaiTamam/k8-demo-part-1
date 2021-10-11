@@ -1,0 +1,2 @@
+kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
+kubectl scale --replicas=2 deployment hello-node

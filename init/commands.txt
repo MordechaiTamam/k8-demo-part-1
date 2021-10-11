@@ -1,0 +1,29 @@
+minikube start
+minikube dashboard
+
+==== Running a redis instance============
+kubectl run redis --image=redis:5.0.4-alpine
+
+kubectl get pods --all-namespaces -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' | sort
+
+kubectl logs redis
+kubectl describe pod redis
+kubectl delete pod/redis
+
+==== Running and exposing NGINX============
+kubectl run nginx --image=nginx:1.15.12-alpine
+# You can open a shell terminal on the container:
+kubectl exec -it nginx -c nginx -- sh
+
+kubectl expose pod/nginx --type="NodePort" --port 80
+export NODE_PORT=$(kubectl get service/nginx -o go-template='{{(index .spec.ports 0).nodePort}}')
+echo NODE_PORT=$NODE_PORT
+echo http://$(minikube ip):$NODE_PORT
+
+What just happened:
+A service was created:
+kubectl get pods --selector="run=nginx" --output=wide
+kubectl get services --selector="run=nginx" --output=wide
+kubectl describe svc/nginx
+
+
