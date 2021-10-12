@@ -1,0 +1,7 @@
+kubectl apply -f redis-cluster/redis-master-deployment.yaml
+kubectl apply -f redis-cluster/redis-master-service.yaml
+kubectl apply -f redis-cluster/redis-slave-deployment.yaml
+kubectl apply -f redis-cluster/redis-slave-service.yaml
+
+docker build -t  moditamam/flask-redis-1110:latest .
+docker push moditamam/flask-redis-1110:latest

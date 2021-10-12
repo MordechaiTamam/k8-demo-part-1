@@ -6,23 +6,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: appdeploy
+  name: flask-redis
   labels:
-    app: flask
+    app: flask-redis
 spec:
   selector:
     matchLabels:
-      app: flask
+      app: flask-redis
   replicas: 1
   strategy:
     type: RollingUpdate
   template:
     metadata:
       labels:
-        app: flask
+        app: flask-redis
     spec:
       containers:
-      - name: flask
+      - name: flask-redis
         image: moditamam/flask-redis-1110:latest
         imagePullPolicy: Always
         ports:
