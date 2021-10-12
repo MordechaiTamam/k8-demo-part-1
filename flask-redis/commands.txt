@@ -5,3 +5,7 @@ kubectl apply -f redis-cluster/redis-slave-service.yaml
 
 docker build -t  moditamam/flask-redis-1110:latest .
 docker push moditamam/flask-redis-1110:latest
+
+kubectl exec flask-redis-POD -- printenv | grep SERVICE
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml

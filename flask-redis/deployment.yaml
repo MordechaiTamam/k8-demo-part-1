@@ -13,7 +13,7 @@ spec:
   selector:
     matchLabels:
       app: flask-redis
-  replicas: 1
+  replicas: 2
   strategy:
     type: RollingUpdate
   template:
@@ -25,5 +25,13 @@ spec:
       - name: flask-redis
         image: moditamam/flask-redis-1110:latest
         imagePullPolicy: Always
+        env:
+        - name: GET_HOSTS_FROM
+          value: dns
+          # If your cluster config does not include a dns service, then to
+          # instead access environment variables to find service host
+          # info, comment out the 'value: dns' line above, and uncomment the
+          # line below.
+          # value: env
         ports:
         - containerPort: 5000
