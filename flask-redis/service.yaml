@@ -3,14 +3,14 @@ kind: Service
 metadata:
   name: flask-redis
   labels:
-    app: flask-redis
+    app: flask-redis-svc
 spec:
   ports:
   - port: 5000
     protocol: TCP
     name: flask-redis
   selector:
-    app: flask-redis
+    app: flask-redis-pod
   type: NodePort
 #  What is a Kubernetes NodePort service?
 #  NodePorts are open ports on every cluster node. Kubernetes will route traffic that comes into a NodePort to the service,

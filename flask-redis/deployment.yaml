@@ -8,18 +8,18 @@ kind: Deployment
 metadata:
   name: flask-redis
   labels:
-    app: flask-redis
+    app: flask-redis-deployment
 spec:
   selector:
     matchLabels:
-      app: flask-redis
+      app: flask-redis-pod
   replicas: 2
   strategy:
     type: RollingUpdate
   template:
     metadata:
       labels:
-        app: flask-redis
+        app: flask-redis-pod
     spec:
       containers:
       - name: flask-redis
