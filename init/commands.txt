@@ -18,7 +18,7 @@ kubectl exec -it nginx -c nginx -- sh
 kubectl expose pod/nginx --type="NodePort" --port 80
 export NODE_PORT=$(kubectl get service/nginx -o go-template='{{(index .spec.ports 0).nodePort}}')
 echo NODE_PORT=$NODE_PORT
-echo http://$(minikube ip):$NODE_PORT
+echo http://$(minikube ip):$NODE_PORT OR minikube service nginx --url
 
 What just happened:
 A service was created:
