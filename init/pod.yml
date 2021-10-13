@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debian
+  labels:
+    name: debian
+spec:
+  containers:
+  - image: debian
+    name: debian-container
+    command:
+      - sleep
+      - "3600"

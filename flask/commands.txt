@@ -9,6 +9,15 @@ kubectl describe services/modi-1208
 export NODE_PORT=$(kubectl get services/modi-1208 -o go-template='{{(index .spec.ports 0).nodePort}}')
 curl $(minikube ip):$NODE_PORT
 
+# Get all pods running in the cluster:
+kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" |\
+tr -s '[[:space:]]' '\n' |\
+sort |\
+uniq -c
+
+# List Container images by Pod
+kubectl get pods --all-namespaces -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' | sort
+
 ####### Interacting with pod/container: #####
 kubectl logs ${POD_NAME} ${CONTAINER_NAME}
 kubectl exec ${POD_NAME} -c ${CONTAINER_NAME} -- ${CMD} ${ARG1} ${ARG2} ... ${ARGN}

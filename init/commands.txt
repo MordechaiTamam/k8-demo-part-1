@@ -4,7 +4,7 @@ minikube dashboard
 ==== Running a redis instance============
 kubectl run redis --image=redis:5.0.4-alpine
 
-kubectl get pods --all-namespaces -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' | sort
+kubectl get pods -l "run=redis" --all-namespaces -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' | sort
 
 kubectl logs redis
 kubectl describe pod redis
@@ -25,5 +25,11 @@ A service was created:
 kubectl get pods --selector="run=nginx" --output=wide
 kubectl get services --selector="run=nginx" --output=wide
 kubectl describe svc/nginx
+
+========================================================
+# Apply a yml file:
+kubectl apply -f pod.yml
+kubectl get pods -l "name=debian"
+kubectl delete -f pod.yml
 
 

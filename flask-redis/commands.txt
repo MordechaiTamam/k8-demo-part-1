@@ -9,3 +9,10 @@ docker push moditamam/flask-redis-1110:latest
 kubectl exec flask-redis-POD -- printenv | grep SERVICE
 kubectl apply -f deployment.yaml
 kubectl apply -f service.yaml
+
+# Generating a deployment.yaml:
+kubectl create deployment web-flask --image=moditamam/flask-redis-1110:latest --replicas=1 --port=5000 \
+                       --labels='app=flask-redis-pod' \
+                       --requests='cpu=100m,memory=100Mi' \
+                       --env="GET_HOSTS_FROM=dns" \
+                       --dry-run --output=yaml > web-flask-deployment.yaml
