@@ -24,6 +24,6 @@ spec:
       containers:
       - name: flask
         image: moditamam/1208:latest
-        imagePullPolicy: Never
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
