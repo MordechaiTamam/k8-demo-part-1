@@ -26,10 +26,4 @@ kubectl get pods --selector="run=nginx" --output=wide
 kubectl get services --selector="run=nginx" --output=wide
 kubectl describe svc/nginx
 
-========================================================
-# Apply a yml file:
-kubectl apply -f pod.yml
-kubectl get pods -l "name=debian"
-kubectl delete -f pod.yml
-
 

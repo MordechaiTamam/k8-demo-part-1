@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: flask
-        image: moditamam/1208:latest
+        image: moditamam/1208:simple
         imagePullPolicy: Always
         ports:
         - containerPort: 8080

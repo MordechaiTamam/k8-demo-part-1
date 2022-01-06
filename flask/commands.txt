@@ -1,7 +1,7 @@
 ####### Build the image: #######
-docker build -t moditamam/1208:latest .
-docker push moditamam/1208:latest
-kubectl create deployment modi-1208 --image=moditamam/1208:latest
+docker build -t moditamam/1208:simple .
+docker push moditamam/1208:simple
+kubectl create deployment modi-1208 --image=moditamam/1208:simple
 kubectl scale --replicas=2 deployment modi-1208
 kubectl expose deployment/modi-1208 --type="NodePort" --port 8080
 kubectl get services
@@ -10,10 +10,7 @@ export NODE_PORT=$(kubectl get services/modi-1208 -o go-template='{{(index .spec
 curl $(minikube ip):$NODE_PORT
 
 # Get all pods running in the cluster:
-kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" |\
-tr -s '[[:space:]]' '\n' |\
-sort |\
-uniq -c
+kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" | tr -s '[[:space:]]' '\n' | sort | uniq -c
 
 # List Container images by Pod
 kubectl get pods --all-namespaces -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' | sort
